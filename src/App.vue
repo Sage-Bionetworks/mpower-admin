@@ -25,6 +25,7 @@
         </form>
       </div>
     </div>
+
     <div v-if="screen === 'DataEntry'">
       <form class="ui form" @submit="findParticipant">
         <div class="ui field">
@@ -42,6 +43,7 @@
         </div>
       </form>
     </div>
+
     <div v-if="screen === 'AddToExisting'">
       <div class="message-container">
         <div class="ui segment">
@@ -130,14 +132,16 @@ export default {
   created: function() {
     this.sessionToken = restoreSessionToken();
     eventHub.$on('before-request', this.showLoading);
-    ['request-error','after-response','response-error'].forEach(name => eventHub.$on(name,  this.hideLoading));
+    ['request-error','after-response','response-error'].forEach(
+      name => eventHub.$on(name,  this.hideLoading));
   },
   mounted: function() {
     this.$nextTick(() => this.$refs.email.focus());
   },
   beforeDestroy: function () {
     eventHub.$off('before-request', this.showLoading);
-    ['request-error','after-response','response-error'].forEach(name => eventHub.$off(name,  this.hideLoading));
+    ['request-error','after-response','response-error'].forEach(
+      name => eventHub.$off(name,  this.hideLoading));
   },  
   computed: {
     guidValid: function() {
